@@ -26,7 +26,7 @@ reassign <- function(x, act.clustering){
   res$cluster <- apply(x, 1, compute.newcluster, act.clustering = act.clustering)
 
   # compute new cluster centers
-  res$means <- by(x, res$cluster,mean)
+  res$means <- by(x, res$cluster,colMeans)
 
   # nonempty cluster indices 
   res$centers <- NULL
@@ -39,11 +39,12 @@ reassign <- function(x, act.clustering){
   remove.subspaces  <- (1:length(act.clustering$subspaces))[-as.numeric(names(which(res$size > 1)))]
   keep.centers      <- res$size > 1
   if (length(remove.subspaces) > 0){
-    warning("At least one empty or single element cluster removed during iteration process...")
-    recomputation <- TRUE
-    act.clustering$centers   <- res$centers[keep.centers,]
-    for(i in remove.subspaces[length(remove.subspaces):1]) act.clustering$subspaces[[i]] <- NULL 
-    }
+
+  warning("At least one empty or single element cluster removed during iteration process...")
+  recomputation <- TRUE
+  act.clustering$centers   <- res$centers[keep.centers,]
+  for(i in remove.subspaces[length(remove.subspaces):1]) act.clustering$subspaces[[i]] <- NULL 
+  }
   if (recomputation) res <- reassign(x, act.clustering)  
   
   return(res)

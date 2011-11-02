@@ -52,7 +52,7 @@ orclus.default <- function(x, k, l, k0, a = 0.5, inner.loops = 1, verbose = TRUE
   if (k == 1) stop("Clustering is not meaningful for only one cluster! For dimensionality reduction use principal component analysis.")
   if (!is.numeric(x)) stop("All input variables must be numeric!")
   if (a > 1 | a < 0) stop("Parameter a must be from the interval (0,1)!")
-
+  if (k0 <= k) stop("For the initial number of clusters k0 > k is supposed!")
   
   # reduction factor for the number of clusters
   b <- exp(-log(d/l)*log(1/a)/log(k0/k))
@@ -108,6 +108,7 @@ orclus.default <- function(x, k, l, k0, a = 0.5, inner.loops = 1, verbose = TRUE
        #4) merge clusters
        #if (verbose) cat("current ratio (cluster)   :", knew, "\n") 
        act.clustering <- clmerge(x, act.clustering, max(k, round(knew)))     
+
        act.k <- length(table(act.clustering$cluster))
        kc    <- knew
        lc    <- lnew
@@ -115,13 +116,20 @@ orclus.default <- function(x, k, l, k0, a = 0.5, inner.loops = 1, verbose = TRUE
        }
   }
   # final reassignment of the clusters
-  cat("Final reassigment...\n")   
+  if (verbose) cat("Final reassigment...\n")   
   clusupdate <- reassign(x, act.clustering)
   act.clustering$cluster   <- clusupdate$cluster
   act.clustering$centers   <- clusupdate$centers
   act.clustering$size      <- clusupdate$size
   act.clustering$subspaces <- clusupdate$subspaces
   remove(clusupdate) 
+  
+  # check if due to removal of empty clusters the final cluster size is lower than the prespecified k
+  if (length(act.clustering$size) < k){ 
+    k <- length(act.clustering$size)
+    warning("Due to empty classed after merge less than k classes result!")
+    cat("New cluster number due to empty classes:", k, "\n\n")
+    }
         
   # compute projected energy per cluster and ad it to result list ...this corresponds to withinss from kmeans
   within.projens <- sapply(1:k, compute.final.projen, x = x, act.clustering = act.clustering, allpts = FALSE)

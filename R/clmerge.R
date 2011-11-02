@@ -32,7 +32,7 @@ update.actclu <- function(win.pair, newsubsp, act.clustering, x){
    # compute new cluster sizes
    act.clustering$size <- table(act.clustering$cluster) 
    # compute new cluster means in original space
-   newmeans <- by(x, act.clustering$cluster,mean)
+   newmeans <- by(x, act.clustering$cluster, colMeans)
    newcenters <- NULL
    for (i in 1:length(table(act.clustering$cluster))) newcenters <- rbind(newcenters, newmeans[[i]])
    act.clustering$centers <- newcenters
