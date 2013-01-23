@@ -3,7 +3,7 @@
 \title{Arbitrarily ORiented projected CLUSter generation}
 \description{Assigns clusters and distances to cluster centers in the corresponding subspaces for new data according to a subspace clustering model of class \code{\link{orclus}}.}
 \usage{
-predict.orclus(object, newdata, ...)
+\method{predict}{orclus}(object, newdata, ...)
 }
 \arguments{
   \item{object}{Model resulting from a call of \code{\link{orclus}}.}

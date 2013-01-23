@@ -1,11 +1,13 @@
 Package: orclus
-Version: 0.1-5
-Date: 2011-11-02
+Version: 0.2-5
+Date: 2013-01-23
 Title: ORCLUS subspace clustering
 Author: Gero Szepannek
 Maintainer: Gero Szepannek <gero.szepannek@web.de>
-Description: Functions to perform subspace clustering. 
+Description: Functions to perform subspace clustering and
+        classification.
 License: GPL (>= 2)
-Packaged: 2011-11-03 07:51:19 UTC; Gero
+Packaged: 2013-01-23 21:16:39 UTC; gero
+NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2011-11-03 12:32:19
+Date/Publication: 2013-02-26 22:14:46

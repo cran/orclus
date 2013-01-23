@@ -1,8 +1,11 @@
-0531a3c1f33eb1a35f11c960126fc9b9 *DESCRIPTION
-106854361e7403f7cd3d9a578858e214 *NAMESPACE
+37f27b8c47987ddfae32814f27840c7e *DESCRIPTION
+932af3489f93a9e5ee87a1066b36f276 *NAMESPACE
 5982e9caa4028c92a83a0150ecc06a3d *R/clmerge.R
 8fd6812b367619602feefd62f63014c6 *R/findvectors.R
-5932b9c01530019b78303dcbb6615d0b *R/orclus.R
+0925876e945b8ad414e0f39a250a58be *R/orclass.R
+3b792c560f846dea61443f4a80966ea7 *R/orclus.R
 24cc9c469d6a36f79c86d36d4c6ee898 *R/reassign.R
+805b1b59d2b1f928149f275280b50d72 *man/orclass.Rd
 e1e31f213c9a2e15772d3b05fe9811ad *man/orclus.Rd
-42bf95464bd354cc7c454866d7c1eab3 *man/predict.orclus.Rd
+9997bd80f30e4f3853f0e8115f6c0ddd *man/predict.orclass.Rd
+4dafafceff210fee3147199e83cafac3 *man/predict.orclus.Rd

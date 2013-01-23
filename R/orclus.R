@@ -43,7 +43,9 @@ orclus.default <- function(x, k, l, k0, a = 0.5, inner.loops = 1, verbose = TRUE
   n <- nrow(x)
   
   # some preliminary error checks
-  if (d <= l) stop("Subspace dimension should be specified lower than the input dimension!")
+  if (d < l) stop("Subspace dimension should be specified lower than the input dimension!")
+  if (d == l){warning("Specified subspace dimension equal to original original dimension. kmeans() applied instead.")
+              return(kmeans(x, centers = k))}
   if (d == 1) stop("For dimension of one no subspaces can be computed!")
   if (l < 1) stop("Subspace dimension l should be at least 1!")
   if (n == l) stop("No clustering is necessary if data consists of only one observation!")
