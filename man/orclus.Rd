@@ -69,19 +69,21 @@ plot(xample, col = orclus.res$cluster)
 
 # show data in cluster-specific subspaces
 par(mfrow=c(1,2))
-for(i in 1:length(orclus.res$size)) plot(xample \%*\% orclus.res$subspaces[[i]], col = orclus.res$cluster, ylab = paste("Identified subspace for cluster",i))
+for(i in 1:length(orclus.res$size)) plot(xample \%*\% orclus.res$subspaces[[i]], 
+    col = orclus.res$cluster, ylab = paste("Identified subspace for cluster",i))
 
 
 ### second 'more multivariate' example to play with...
 
 # definition of a function for parameterized data simulation
-sim.orclus <- function(k = 3, nk = 100, d = 10, l = 4, sd.cl = 0.05, sd.rest = 1, locshift = 1){
+sim.orclus <- function(k = 3, nk = 100, d = 10, l = 4, 
+                       sd.cl = 0.05, sd.rest = 1, locshift = 1){
   ### input parameters for data generation
   # k           number of clusters
   # nk          observations per cluster
   # d           original dimension of the data
   # l           subspace dimension where the clusters are concentrated
-  # sd.cl       (univariate) standard deviations for data generation (within cluster subspace concentration) 
+  # sd.cl       (within cluster subspace) standard deviations for data generation 
   # sd.rest     standard deviations in the remaining space 
   # locshift    parameter of a uniform distribution to sample different cluster means  
 
@@ -90,7 +92,8 @@ sim.orclus <- function(k = 3, nk = 100, d = 10, l = 4, sd.cl = 0.05, sd.rest = 1
   # cluster centers
   apts <- locshift*matrix(runif(l*k), ncol = l)  
   # sample points in original space
-  xi.original <- cbind(matrix(rnorm(nk * l, sd = sd.cl), ncol=l) + matrix(rep(apts[i,], nk), ncol = l, byrow = TRUE),
+  xi.original <- cbind(matrix(rnorm(nk * l, sd = sd.cl), ncol=l) + matrix(rep(apts[i,], nk), 
+                              ncol = l, byrow = TRUE),
                        matrix(rnorm(nk * (d-l), sd = sd.rest), ncol = (d-l)))  
   # subspace generation
   sym.mat <- matrix(nrow=d, ncol=d)
@@ -110,7 +113,8 @@ sim.orclus <- function(k = 3, nk = 100, d = 10, l = 4, sd.cl = 0.05, sd.rest = 1
   }
 
 # simulate data, you can play with different parameterizations...
-simdata <- sim.orclus(k = 3, nk = 200, d = 15, l = 4, sd.cl = 0.05, sd.rest = 1, locshift = 1)
+simdata <- sim.orclus(k = 3, nk = 200, d = 15, l = 4, 
+                      sd.cl = 0.05, sd.rest = 1, locshift = 1)
 
 # apply kmeans and orclus
 kmeans.res2 <- kmeans(simdata$x, 3)
